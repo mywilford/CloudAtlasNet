@@ -13,23 +13,14 @@
         border: 1px solid lightgray;
         /*background-color: #000;*/
       }
-      
-      /* testing transition thing */
-      
-      #body { 
-        opacity: 0;
-      transition: opacity .5s;
-      
-    }
     </style>
-    <!--doesn't work in Chrome-->
-    <!--<link rel=stylesheet href="C:\Users\Madigan Wilford\Documents\Library\etext.css">-->
-  </head>
+     </head>
   <body>    
     
     
- 
-    
+    <pre id= "title">Credit for connections and external references goes to Phillip Wegner and the students of LIT4188.</pre>
+    <pre>All quotations, unless otherwise noted, are from David Mitchell's <i>Cloud Atlas</i>.</pre>
+    <pre>If the central shape of the six sections doesn't resemble a hexagon, refresh the page until it does for a better view.</pre>
     <div id="mynetwork"></div>
     
  <!--added from docs -->
@@ -56,15 +47,15 @@
         
         //nodes[0] = {id: 0, label: "Zero", group: 1};
         
-        nodes.push({id: 0, label: "Cloud Atlas", group: 7, shape: "circle"},
-                   {id: 1, label: "The Pacific Journal of Adam Ewing", group: 1},
-                   {id: 2, label: "Letters from Zedelghem", group: 2},
-                   {id: 3, label: "Half Lives: The First Luisa Rey Mystery", group: 3},
-                   {id: 4, label: "The Ghastly Ordeal of Timothy Cavendish", group: 4},
-                   {id: 5, label: "An Orison of Sonmi-451", group: 5},
-                   {id: 6, label: "Sloosha's Crossin' An' Ev'Rythin After", group: 6}
+        nodes.push({id: 0, label: "Cloud Atlas", group: 7, shape: "circle", font: {size: 18}, x: -28, y: -15, value: 20},
+                   {id: 1, label: "The Pacific Journal of Adam Ewing", group: 1, font: {size: 18}, value: 20},
+                   {id: 2, label: "Letters from Zedelghem", font: {size: 18}, group: 2, value: 20},
+                   {id: 3, label: "Half Lives: The First Luisa Rey Mystery", font: {size: 18}, group: 3, value: 20},
+                   {id: 4, label: "The Ghastly Ordeal of Timothy Cavendish", font: {size: 18}, group: 4, value: 20},
+                   {id: 5, label: "An Orison of Sonmi-451", font: {size: 18}, group: 5, value: 20},
+                   {id: 6, label: "Sloosha's Crossin' An' Ev'Rythin After", font: {size: 18}, group: 6, value: 20}
                    );
-        
+       
         //add nodes by group
         //will be useful for individual citations
         
@@ -102,7 +93,8 @@
                       9,
                       11, 11, 11, 11, 11, 11,
                       12, 12, 12, 12, 12, 12,
-                      8, 8];
+                      8, 8,
+                      2];
         var labels = ["\"Now the doctor awaits a long-overdue Australian sealer, the Nellie\" - p. 5",
                       "\"Adrian would never have marched...\" - p. 49",
                       "\"Learnt Ayrs contracted his syphilis at a bordello in Copenhagen in 1915\" - p. 69",
@@ -149,7 +141,8 @@
                       "Recording",
                       "Oral",
                       "Pamela (Samuel Richardson)",
-                      "The Rime of the Ancient Mariner"
+                      "The Rime of the Ancient Mariner",
+                      "Adrian would still be alive if \"plucky little Belgium\" never existed. Someone should turn this dwarf-country into a giant boating lake and toss in Belgium's inventor, his feet tied to a Minerva.\" - p. 453"
                       ];
         
         var arrayItems = [];
@@ -163,9 +156,9 @@
         for (let i = 0; i < arrayItems.length; i++) {
             
             if (groups[i] >= 8) {
-                nodes.push({id: 7+i, label: labels[i] /*+ " (index " + (7+i) + ")"*/, group: groups[i], value: 10, shape: "oval", color: colors[groups[i]]});
+                nodes.push({id: 7+i, label: labels[i] + " (index " + (7+i) + ")", group: groups[i], value: 10, shape: "oval", font: {size: 18}, color: colors[groups[i]]});
             } else {
-                nodes.push({id: 7+i, label: labels[i] /*+ " (index " + (7+i) + ")"*/, group: groups[i], value: 10, shape: "box"/*, color: {background: "white"}*/});
+                nodes.push({id: 7+i, label: labels[i] + " (index " + (7+i) + ")", group: groups[i], value: 10, shape: "box", font: {size: 14}/*, color: {background: "white"}*/});
             }
         }
         
@@ -199,12 +192,19 @@
         
 
         //add edges for external references and historical events
-        edges.push(//Adam Ewing
+        edges.push(//Structural
+                   {from: 1, to: 2},
+                   {from: 2, to: 3},
+                   {from: 3, to: 4},
+                   {from: 4, to: 5},
+                   {from: 5, to: 6},
+                   {from: 6, to: 1},
+                   
+                   //Adam Ewing
                    {from: 1, to: 29},
                    {from: 1, to: 30},
                    {from: 14, to: 7},
                    {from: 1, to: 22},
-                   {from: 1, to: 32},
                    {from: 1, to: 40},
                    {from: 1, to: 46},
                    {from: 1, to: 35},
@@ -219,6 +219,7 @@
                    {from: 2, to: 47},
                    {from: 47, to: 52},
                    {from: 21, to: 41},
+                   {from: 36, to: 54},
                    //Luisa Rey
                    {from: 3, to: 28},
                    {from: 3, to: 27},
@@ -242,12 +243,12 @@
                    {from: 5, to: 44},
                    {from: 5, to: 50},
                    {from: 5, to: 37},
-                   
                    {from: 37, to: 44},
                    {from: 16, to: 44},
                    {from: 17, to: 44},
                    {from: 33, to: 44},
-                   {from: 15, to: 44},
+                   //Zachry
+                   {from: 15, to: 45},
                    //Themes
                    {from: 22, to: 14},
                    {from: 22, to: 15},
@@ -311,9 +312,9 @@
             //0.0015 is good for a balance              
             centralGravity: 0.004,
             //springLength: 150,
-            avoidOverlap: 0.6,
+            avoidOverlap: 0.7,
             damping: 0.8,
-            //springConstant: 0.18,
+            springConstant: 0.05,
           },
           maxVelocity: 46,
           solver: "forceAtlas2Based",
@@ -339,13 +340,13 @@
       network.on("click", function (params) {
         params.event = "[original event]";       
      
-        //document.getElementById("eventSpanHeading").innerText = "Click event:";
+       // document.getElementById("eventSpanHeading").innerText = "Click event:";
         
         //sets the paragraph with id "eventSpanContent" to have the stringified results of params
            /* document.getElementById("eventSpanContent").innerText = JSON.stringify(
-              params,
-              null,
-              4
+              nodes,
+              undefined,
+              2
             );*/
         // NO WAY dude it actually will return [node number]
         //seems to be stored as a string, but doesn't have the []
@@ -432,13 +433,13 @@
      //include some buttons that have on/off hover modes, etc.
      
       network.on("zoom", function (params) {
-        document.getElementById("eventSpanHeading").innerText = "zoom event:";
+       /* document.getElementById("eventSpanHeading").innerText = "zoom event:";
         document.getElementById("eventSpanContent").innerText = JSON.stringify(
           params,
           null,
           4
         );
-        console.log(params.scale);
+        console.log(params.scale);*/
       });
       
       
