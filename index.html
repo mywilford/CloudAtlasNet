@@ -36,7 +36,7 @@
         ];
         
        
-        //DOESN'T DISPLAY WHEN ID DOESN'T MATCH INDEX
+        //id must match index to display correctly
         
         for (let i = 0; i < nodes.length; i++) {
             window.alert(JSON.stringify(nodes[i]));
@@ -56,9 +56,8 @@
                    {id: 6, label: "Sloosha's Crossin' An' Ev'Rythin After", font: {size: 18}, group: 6, value: 20}
                    );
        
-        //add nodes by group
-        //will be useful for individual citations
-        
+
+        //if adding by group (old implementation)
         /*var index = 7;
         for (var j = 0; j < two_d_array.length; j++) {
           for (var i = 0; i < two_d_array[j].length; i++) {
@@ -71,11 +70,7 @@
         }*/
         
         
-        
-        //AIGHT TRYING SOMETHING NEW W NODES
-
-        
-        var indices = [];
+        //new node addition strategy
      
         //group 8 = external works
         //group 9 = themes
@@ -156,15 +151,14 @@
         for (let i = 0; i < arrayItems.length; i++) {
             
             if (groups[i] >= 8) {
-                nodes.push({id: 7+i, label: labels[i] + " (index " + (7+i) + ")", group: groups[i], value: 10, shape: "oval", font: {size: 18}, color: colors[groups[i]]});
+                nodes.push({id: 7+i, label: labels[i]/* + " (index " + (7+i) + ")"*/, group: groups[i], value: 10, shape: "oval", font: {size: 18}, color: colors[groups[i]]});
             } else {
-                nodes.push({id: 7+i, label: labels[i] + " (index " + (7+i) + ")", group: groups[i], value: 10, shape: "box", font: {size: 14}/*, color: {background: "white"}*/});
+                nodes.push({id: 7+i, label: labels[i]/* + " (index " + (7+i) + ")"*/, group: groups[i], value: 10, shape: "box", font: {size: 14}/*, color: {background: "white"}*/});
             }
         }
         
         
-
-        // create some edges  
+        // create edges  
         var edges = [
         ];
         
@@ -175,7 +169,7 @@
         
         //pushing edges by group
         
-        //former one
+        //former implementation
         /*for (let j = 0; j < nodes.length; j++) {
             for (let i = j+1; i < nodes.length; i++) {
                 if (nodes[j].group == nodes[i].group && nodes[j].group <= 6) {
@@ -190,7 +184,6 @@
             }
         }
         
-
         //add edges for external references and historical events
         edges.push(//Structural
                    {from: 1, to: 2},
@@ -283,7 +276,7 @@
         edges:edgesDATA,
       };
       
-      // apparently all options have to be in one tag or it breaks
+      // all options have to be in one tag or it breaks
 
       var options = {
         nodes: {
@@ -332,10 +325,6 @@
       
       //functions from dynamic data examples
       
-  
-
-
-      
       //INTERACTION EVENTS
       network.on("click", function (params) {
         params.event = "[original event]";       
@@ -348,8 +337,6 @@
               undefined,
               2
             );*/
-        // NO WAY dude it actually will return [node number]
-        //seems to be stored as a string, but doesn't have the []
 
         //document.getElementById("myContent").innerText = JSON.stringify(params.nodes);
         
@@ -359,7 +346,6 @@
             //params.nodes signified the node you've clicked on
             var nodeID = params.nodes;
             //get the label from the id
-            //THIS IS SLOPPY - ITERATION RIGHT NOW
             //match the label to the code
             let name = nodes[nodeID].label;
             let mediaLink = "";
@@ -424,12 +410,10 @@
         //resetAllNodesStabilize();
         resetOneNode(nodeID);*/
           
-          
         //}
         
       });
-      
-     
+
      //include some buttons that have on/off hover modes, etc.
      
       network.on("zoom", function (params) {
@@ -441,9 +425,7 @@
         );
         console.log(params.scale);*/
       });
-      
-      
-      
+ 
     </script>
     
     
