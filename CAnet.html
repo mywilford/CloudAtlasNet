@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cloud Atlas References</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+      #mynetwork {
+        width: 100%;
+        height: 800px;
+        border: 1px solid lightgray;
+        /*background-color: #000;*/
+      }
+      
+      /* testing transition thing */
+      
+      #body { 
+        opacity: 0;
+      transition: opacity .5s;
+      
+    }
+    </style>
+    <!--doesn't work in Chrome-->
+    <!--<link rel=stylesheet href="C:\Users\Madigan Wilford\Documents\Library\etext.css">-->
+  </head>
+  <body>    
+    
+    
+ 
+    
+    <div id="mynetwork"></div>
+    
+ <!--added from docs -->
+    <h2 id="eventSpanHeading"></h2>
+    <pre id="eventSpanContent"></pre>
+    <pre id="myContent"></pre>
+    
+    <script type="text/javascript">
+        // create some nodes
+        var nodes = [
+          //{ id: 0, label: "Myriel", group: 1 },
+          
+        ];
+        
+       
+        //DOESN'T DISPLAY WHEN ID DOESN'T MATCH INDEX
+        
+        for (let i = 0; i < nodes.length; i++) {
+            window.alert(JSON.stringify(nodes[i]));
+        }
+        
+        var colors = ["#ffcccc", "#ffdd99", "#b3d9ff", "#b3ffb3", "#ffcce0", "#eeccff", "#ffb3b3",
+                      "#ffccff", "#b3b3ff", "#ffddcc", "#ffffb3", "#f2ccff", "#c6ecc6"];
+        
+        //nodes[0] = {id: 0, label: "Zero", group: 1};
+        
+        nodes.push({id: 0, label: "Cloud Atlas", group: 7, shape: "circle"},
+                   {id: 1, label: "The Pacific Journal of Adam Ewing", group: 1},
+                   {id: 2, label: "Letters from Zedelghem", group: 2},
+                   {id: 3, label: "Half Lives: The First Luisa Rey Mystery", group: 3},
+                   {id: 4, label: "The Ghastly Ordeal of Timothy Cavendish", group: 4},
+                   {id: 5, label: "An Orison of Sonmi-451", group: 5},
+                   {id: 6, label: "Sloosha's Crossin' An' Ev'Rythin After", group: 6}
+                   );
+        
+        //add nodes by group
+        //will be useful for individual citations
+        
+        /*var index = 7;
+        for (var j = 0; j < two_d_array.length; j++) {
+          for (var i = 0; i < two_d_array[j].length; i++) {
+              //can reference i or j
+              
+              nodes.push({id: index, label: two_d_array[j][i] + " (index " + index + ")", group: (j+1), value: 10, shape: "box"/*, color: colors[j]});
+              //nodes[index] also works
+              index++;
+          }
+        }*/
+        
+        
+        
+        //AIGHT TRYING SOMETHING NEW W NODES
+
+        
+        var indices = [];
+     
+        //group 8 = external works
+        //group 9 = themes
+        //group 10 = historical events
+        //group 11 = genres
+        //gropu 12 = forms
+     
+        var groups = [1, 2, 2, 4, 4, 5, 5,
+                      8, 8, 8, 8, 8, 8, 8, 8,
+                      9, 9,
+                      10, 10, 10, 10, 10, 10, 10,
+                      8, 8, 8,
+                      10, 10,
+                      8, 8, 8,
+                      9,
+                      11, 11, 11, 11, 11, 11,
+                      12, 12, 12, 12, 12, 12,
+                      8, 8];
+        var labels = ["\"Now the doctor awaits a long-overdue Australian sealer, the Nellie\" - p. 5",
+                      "\"Adrian would never have marched...\" - p. 49",
+                      "\"Learnt Ayrs contracted his syphilis at a bordello in Copenhagen in 1915\" - p. 69",
+                      "\"I disapprove of flashbacks, foreshadowings, and tricksy devices\" - p. 150",
+                      "\"My television died the night George Bush II snatched the throne and I haven't dared replace it.\" - p. 167",
+                      "\"...two Optimists translated from the Late English, Orwell and Huxley\" - p. 211",
+                      "\"That image is burned into every pureblood memory, too, Sonmi...You felt the corpocratic world order had changed, irrevocably. You...supported the resultant Homeland Laws dictated by the Beloved Chairman, wholeheartedly.\" - p. 195",
+                      "Heart of Darkness",
+                      "The Time Machine",
+                      "1984",
+                      "Brave New World",
+                      "Soylent Green",
+                      "The Hobbit: There And Back Again",
+                      "Dr. Faustus",
+                      "Portrait of the Artist as a Young Man",
+                      "The story is about the person listening.",
+                      "The most important thing happens after the climax",
+                      "9/11",
+                      "WWII",
+                      "Vietnam War",
+                      "Watergate (and its end)",
+                      "Three Mile Island (1979)",
+                      "California Gold Rush",
+                      "American Civil War",
+                      "The Big Sleep",
+                      "Thomas More's Utopia",
+                      "Fahrenheit 451",
+                      "\"American Century\" begins",
+                      "Transcontinental Railroad completed (1869)",
+                      "The Voorman Problem (feat. Martin Freeman)",
+                      "Blade Runner",
+                      "Small World: An Academic Romance",
+                      "Voyages to the Pacific",
+                      "Travel Narrative",
+                      "Kunstlerroman",
+                      "Mystery/noir",
+                      "Farce (realism)",
+                      "Dystopia/SF",
+                      "Post-apocalyptic/SF",
+                      "Journal",
+                      "Epistolary",
+                      "Novel",
+                      "Memoir",
+                      "Recording",
+                      "Oral",
+                      "Pamela (Samuel Richardson)",
+                      "The Rime of the Ancient Mariner"
+                      ];
+        
+        var arrayItems = [];
+        for (let i = 0; i < labels.length; i++) {
+            const nodeItem = {index: 7+i, group: groups[i], label: labels[i]};
+            arrayItems[arrayItems.length] = nodeItem;
+            //nodes.push({id: 7+i, label: labels[i] + " (index " + (7+i) + ")", group: groups[i], value: 10, shape: "box"/*, color: colors[j]*/});
+
+        }
+        
+        for (let i = 0; i < arrayItems.length; i++) {
+            
+            if (groups[i] >= 8) {
+                nodes.push({id: 7+i, label: labels[i] /*+ " (index " + (7+i) + ")"*/, group: groups[i], value: 10, shape: "oval", color: colors[groups[i]]});
+            } else {
+                nodes.push({id: 7+i, label: labels[i] /*+ " (index " + (7+i) + ")"*/, group: groups[i], value: 10, shape: "box"/*, color: {background: "white"}*/});
+            }
+        }
+        
+        
+
+        // create some edges  
+        var edges = [
+        ];
+        
+        //add edges for six main sections 
+        for (let j = 1; j <= 6; j++) {
+            edges.push({from: j, to: 0});
+        }
+        
+        //pushing edges by group
+        
+        //former one
+        /*for (let j = 0; j < nodes.length; j++) {
+            for (let i = j+1; i < nodes.length; i++) {
+                if (nodes[j].group == nodes[i].group && nodes[j].group <= 6) {
+                    edges.push({from: j, to: i});
+                }
+            }
+        }*/
+        
+        for (let j = 0; j < nodes.length; j++) {
+            if (nodes[j].group <= 6) {
+                edges.push({from: j, to: nodes[j].group});
+            }
+        }
+        
+
+        //add edges for external references and historical events
+        edges.push(//Adam Ewing
+                   {from: 1, to: 29},
+                   {from: 1, to: 30},
+                   {from: 14, to: 7},
+                   {from: 1, to: 22},
+                   {from: 1, to: 32},
+                   {from: 1, to: 40},
+                   {from: 1, to: 46},
+                   {from: 1, to: 35},
+                   {from: 1, to: 39},
+                   {from: 32, to: 39},
+                   //Robert Frobisher
+                   {from: 20, to: 8},
+                   {from: 20, to: 9},
+                   {from: 25, to: 2},
+                   {from: 34, to: 2},
+                   {from: 2, to: 41},
+                   {from: 2, to: 47},
+                   {from: 47, to: 52},
+                   {from: 21, to: 41},
+                   //Luisa Rey
+                   {from: 3, to: 28},
+                   {from: 3, to: 27},
+                   {from: 3, to: 26},
+                   {from: 3, to: 31},
+                   {from: 3, to: 42},
+                   {from: 3, to: 48},
+                   {from: 31, to: 42},
+                   //Timothy Cavendish
+                   {from: 4, to: 18},
+                   {from: 4, to: 43},
+                   {from: 10, to: 19},
+                   {from: 38, to: 43},
+                   {from: 4, to: 49},
+                   {from: 36, to: 19},
+                   //Sonmi-451
+                   {from: 12, to: 16},
+                   {from: 12, to: 17},
+                   {from: 13, to: 24},
+                   {from: 5, to: 33},
+                   {from: 5, to: 44},
+                   {from: 5, to: 50},
+                   {from: 5, to: 37},
+                   
+                   {from: 37, to: 44},
+                   {from: 16, to: 44},
+                   {from: 17, to: 44},
+                   {from: 33, to: 44},
+                   {from: 15, to: 44},
+                   //Themes
+                   {from: 22, to: 14},
+                   {from: 22, to: 15},
+                   {from: 6, to: 45},
+                   {from: 6, to: 51},
+                   {from: 23, to: 14},
+                   {from: 23, to: 15},
+                   {from: 23, to: 53}
+                   );
+    
+      
+      //comment for when you invevitably cause problems
+      /*
+       nodes.clear() and other functions didn't work without the below lines
+       about new vis.DataSet. But because you already use "nodes" and "edges"
+       to refer to the arrays throughout, I created edgesDATA etc. to stand
+       in just to use those functions. A poor naming choice that may come
+       back to haunt me. I don't know how many functions depend on nodes vs.
+       nodesDATA. 
+      */
+      
+      
+      edgesDATA = new vis.DataSet(edges);
+      nodesDATA = new vis.DataSet(nodes);
+      
+      // create a network
+      var container = document.getElementById("mynetwork");
+      var data = {
+        //nodes: nodes,
+        //edges: edges,
+        nodes:nodesDATA,
+        edges:edgesDATA,
+      };
+      
+      // apparently all options have to be in one tag or it breaks
+
+      var options = {
+        nodes: {
+          shape: "dot",
+          size: 16,
+          widthConstraint: {maximum: 300},
+        },
+        color: {
+          background: "#FFFFFF",
+        },
+        font: {
+          //not working
+          face: "serif",
+          background: "white"
+        },
+        edges: {
+          //width: 0.15,
+          smooth: {
+            type: "dynamic",
+          },
+        },
+        physics: {
+          forceAtlas2Based: {
+            gravitationalConstant: -20,
+            //originally 0.005
+            //0.0015 is good for a balance              
+            centralGravity: 0.004,
+            //springLength: 150,
+            avoidOverlap: 0.6,
+            damping: 0.8,
+            //springConstant: 0.18,
+          },
+          maxVelocity: 46,
+          solver: "forceAtlas2Based",
+          timestep: 0.35,
+          stabilization: { iterations: 150 },
+          
+        },
+        interaction: { hover: true },
+        manipulation: {
+          enabled: false,
+        },
+      };
+        
+      var network = new vis.Network(container, data, options);
+      
+      //functions from dynamic data examples
+      
+  
+
+
+      
+      //INTERACTION EVENTS
+      network.on("click", function (params) {
+        params.event = "[original event]";       
+     
+        //document.getElementById("eventSpanHeading").innerText = "Click event:";
+        
+        //sets the paragraph with id "eventSpanContent" to have the stringified results of params
+           /* document.getElementById("eventSpanContent").innerText = JSON.stringify(
+              params,
+              null,
+              4
+            );*/
+        // NO WAY dude it actually will return [node number]
+        //seems to be stored as a string, but doesn't have the []
+
+        //document.getElementById("myContent").innerText = JSON.stringify(params.nodes);
+        
+        //currently opens blank page if no link is stored in map
+        if (params.nodes != "") {
+            //use the node you have
+            //params.nodes signified the node you've clicked on
+            var nodeID = params.nodes;
+            //get the label from the id
+            //THIS IS SLOPPY - ITERATION RIGHT NOW
+            //match the label to the code
+            let name = nodes[nodeID].label;
+            let mediaLink = "";
+            mediaLink = collection.get(name);
+            
+            //take the user to that page
+            //not functioning correctly right now
+            if (mediaLink != undefined) {
+                //window.open(mediaLink, "_blank");
+                
+                //transition works - not visible because of lack of body content
+                
+                document.querySelector('body').style.opacity = 0;
+                  setTimeout(function() { 
+                    window.location.href = mediaLink;
+                  }, 500)
+                
+                document.addEventListener('DOMContentLoaded', function(event) {
+                  document.querySelector('body').style.opacity = 1;
+                })
+                
+            } else {
+              document.getElementById("eventSpanHeading").innerText = "No Link";
+            }
+        }
+ 
+      });
+      
+     
+      network.on("hoverNode", function (params) {
+        //now to affect what - zoom or node size when hover occurs
+        
+        params.event = "[original event]";       
+
+        //it's apparently params.node, not params.nodes for hover
+        
+        
+        /* commenting out this hover activity
+        document.getElementById("myContent").innerText = JSON.stringify(params.node);
+        var nodeID = params.node;
+        
+        console.log("nodeValue = " + nodes[nodeID].value);
+        
+        var intervalID2 = 0;
+        
+        function increaseValue(nodeID) {
+            nodes[nodeID].value +=1;
+        }
+        //this is dumb and doesn't work
+        while (nodes[nodeID].value < 20) {
+          
+          clearInterval(intervalID2);
+          intervalID2 = setInterval(increaseValue, 10, nodeID);
+        }
+        commenting out this hover activity */
+        
+        //if (nodes[nodeID].value ==20) {
+            
+        //} else {
+          /*nodes[nodeID].value = 5;
+        
+        //resetAllNodesStabilize();
+        resetOneNode(nodeID);*/
+          
+          
+        //}
+        
+      });
+      
+     
+     //include some buttons that have on/off hover modes, etc.
+     
+      network.on("zoom", function (params) {
+        document.getElementById("eventSpanHeading").innerText = "zoom event:";
+        document.getElementById("eventSpanContent").innerText = JSON.stringify(
+          params,
+          null,
+          4
+        );
+        console.log(params.scale);
+      });
+      
+      
+      
+    </script>
+    
+    
+    
+  </body>
+</html>
